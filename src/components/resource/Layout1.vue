@@ -8,7 +8,7 @@
           <div class="grid-content bg-purple layout" @click="goProduct">
             <img :src="item.url" class="item_img"/>
             <div  class="item_title clearfix">
-              <span>{{ item.title }}</span>
+              <span :title=item.title style="cursor: pointer">{{ item.title }}</span>
             </div>
           </div>
         </el-card>

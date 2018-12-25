@@ -236,7 +236,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     float: left;
-    height: 40px;
+    /*height: 40px;*/
     text-align: left;
   }
 

@@ -72,9 +72,11 @@
       goNewProduct() {
         // this.$router.push({name: 'SearchType'});
         this.$router.push({name: 'SearchType',query:{new:'New'}});
+        // this.$store.state.checkindex = '3'
       },
       goHotProduct() {
         this.$router.push({name: 'SearchType',query:{hot:'Hot'}});
+        // this.$store.state.checkindex = '1'
       },
       goNorm() {
         this.$router.push({name: 'Norm'});

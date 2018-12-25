@@ -11,6 +11,8 @@
         background-color="rgb(70, 130, 180)"
         text-color="#fff"
         active-text-color="#ffd04b">
+        <el-menu-item index="Survey" @click="goSurvey"><i class="el-icon-menu"></i>统计管理
+        </el-menu-item>
         <el-menu-item index="PdManage" @click="goPdManage"><i class="el-icon-goods"></i>产品管理
         </el-menu-item>
         <el-menu-item index="NormManage" @click="goNormManage"><i class="el-icon-document"></i>标准管理
@@ -52,7 +54,7 @@
     name: "LeftNav",
     data(){
       return {
-        activeIndex:'PdManage',
+        activeIndex:'Survey',
       }
     },
     created(){
@@ -70,7 +72,9 @@
       handleClose(key, keyPath) {
         console.log(key, keyPath);
       },
-
+      goSurvey(){
+        this.$router.push({path: '/Back/Survey'})
+      },
       goUsersManage() {
         this.$router.push({path: '/Back/UsersManage'})
       },

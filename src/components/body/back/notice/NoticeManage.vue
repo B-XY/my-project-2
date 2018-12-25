@@ -157,9 +157,10 @@
           </el-form-item>
           <el-form-item label="公告内容：">
             <!--<el-input type="textarea" placeholder="公告内容"  v-model="noticeadddata.content" :autosize="{ minRows: 6, maxRows: 100}" ></el-input>-->
-            <div v-html="str" class="ql-editor" style="min-height: 100px;border: 1px solid darkgray;">
-              {{this.str}}
-            </div>
+            <!--<div v-html="str" class="ql-editor" style="min-height: 100px;border: 1px solid darkgray;">-->
+              <!--{{this.str}}-->
+            <!--</div>-->
+            <div v-html="noticeshowdata.tinymceHtml"></div>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="dialogVisibleshow = false">
@@ -206,13 +207,14 @@
           </el-form-item>
           <el-form-item label="公告内容：">
             <!--<el-input type="textarea" placeholder="公告内容"  v-model="noticeadddata.content" :autosize="{ minRows: 6, maxRows: 100}" ></el-input>-->
-            <quill-editor
-              v-model="noticechangedata.content"
-              ref="myQuillEditor"
-              :options="editorOption1"
-              @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
-              @change="onEditorChange($event)">
-            </quill-editor>
+            <!--<quill-editor-->
+              <!--v-model="noticechangedata.content"-->
+              <!--ref="myQuillEditor"-->
+              <!--:options="editorOption1"-->
+              <!--@blur="onEditorBlur($event)" @focus="onEditorFocus($event)"-->
+              <!--@change="onEditorChange($event)">-->
+            <!--</quill-editor>-->
+            <Editor v-model="noticechangedata.tinymceHtml" :init="init"></Editor>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSaveChange">保存</el-button>
@@ -257,13 +259,15 @@
           </el-form-item>
           <el-form-item label="公告内容：">
             <!--<el-input type="textarea" placeholder="公告内容"  v-model="noticeadddata.content" :autosize="{ minRows: 6, maxRows: 100}" ></el-input>-->
-            <quill-editor
-              v-model="noticeadddata.content"
-              ref="myQuillEditor"
-              :options="editorOption1"
-              @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
-              @change="onEditorChange($event)">
-            </quill-editor>
+            <!--<quill-editor-->
+              <!--v-model="noticeadddata.content"-->
+              <!--ref="myQuillEditor"-->
+              <!--:options="editorOption1"-->
+              <!--@blur="onEditorBlur($event)" @focus="onEditorFocus($event)"-->
+              <!--@change="onEditorChange($event)">-->
+            <!--</quill-editor>-->
+            <Editor v-model="noticeadddata.tinymceHtml" :init="init"></Editor>
+            <!--<div v-html="noticeadddata.content"></div>-->
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSave">保存</el-button>
@@ -279,10 +283,24 @@
 </template>
 
 <script>
-  import {quillEditor} from 'vue-quill-editor' //调用编辑器
+  // import {quillEditor} from 'vue-quill-editor' //调用编辑器
+  import tinymce from 'tinymce/tinymce'
+  import 'tinymce/themes/modern/theme'
+  import Editor from '@tinymce/tinymce-vue'
+  import 'tinymce/plugins/image'
+  import 'tinymce/plugins/link'
+  import 'tinymce/plugins/code'
+  import 'tinymce/plugins/table'
+  import 'tinymce/plugins/lists'
+  import 'tinymce/plugins/contextmenu'
+  import 'tinymce/plugins/wordcount'
+  import 'tinymce/plugins/colorpicker'
+  import 'tinymce/plugins/textcolor'
+
   export default {
     name: "NoticeManage",
-    components: {quillEditor},
+    // components: {quillEditor},
+    components: {Editor},
     computed: {
       // content: function () {
       //   return this.$store.state.content
@@ -305,7 +323,7 @@
           name: '林辛',
           organization: '最高人民检察院',
           /*state:'已发布',*/
-          content: '<h1 class="ql-align-center">Hello word</h1><p class="ql-align-center"><br></p><h2 class="ql-align-center">The word is very good!!!</h2>',
+          tinymceHtml: '<h1 class="ql-align-center">Hello word</h1><p class="ql-align-center"><br></p><h2 class="ql-align-center">The word is very good!!!</h2>',
           fileList:[
             {
               name:'1.txt',
@@ -319,7 +337,7 @@
           name: '林辛',
           organization: '最高人民检察院',
           // state:'已发布',
-          content: '<h1 class="ql-align-center">Hello word</h1><p class="ql-align-center"><br></p><h2 class="ql-align-center">The word is very good!!!</h2>',
+          tinymceHtml: '<h1 class="ql-align-center">Hello word</h1><p class="ql-align-center"><br></p><h2 class="ql-align-center">The word is very good!!!</h2>',
           fileList:[
             {
               name:'1.txt',
@@ -332,7 +350,7 @@
           title: '',
           name: '',
           organization: '',
-          content: '',
+          tinymceHtml: '',
           fileList3: [
             {
             name: 'food.jpeg',
@@ -409,6 +427,17 @@
           },
         ],
 
+        tinymceHtml: '',
+        init: {
+          language_url: '/static/tinymce/zh_CN.js',
+          language: 'zh_CN',
+          skin_url: '/static/tinymce/skins/lightgray',
+          height: 200,
+          plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
+          toolbar: 'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | undo redo | link unlink image code | removeformat',
+          branding: false
+        },
+
         editorOption:'',
         editorOption1: {
           modules: {
@@ -430,7 +459,8 @@
       }
     },
     mounted() {
-      this.str = this.escapeStringHTML(this.noticeshowdata.content);
+      // this.str = this.escapeStringHTML(this.noticeshowdata.content);
+      tinymce.init({})// 特别注意这个空对象的存在，如果这个初始化空对象不存在依旧会报错
     },
     methods: {
       typeTag(type) {
@@ -458,40 +488,46 @@
       // back(){
       //   this.$router.push({name:'PdAdd'})
       // },
-      onEditorReady(editor) { // 准备编辑器
-      },
-      onEditorBlur() {//失去焦点事件
-      },
-      onEditorFocus() {//获得焦点事件
-      },
-      onEditorChange() {//内容改变事件
-        // let textLength = text.length
-        this.$emit('getValue', this.content)
-        this.$store.state.content = this.content
-      },
+      // onEditorReady(editor) { // 准备编辑器
+      // },
+      // onEditorBlur() {//失去焦点事件
+      // },
+      // onEditorFocus() {//获得焦点事件
+      // },
+      // onEditorChange() {//内容改变事件
+      //   // let textLength = text.length
+      //   this.$emit('getValue', this.content)
+      //   this.$store.state.content = this.content
+      // },
       // 转码
-      escapeStringHTML(str) {
-        str = str.replace(/&lt;/g,'<');
-        str = str.replace(/&gt;/g,'>');
-        return str;
-      },
+      // escapeStringHTML(str) {
+      //   str = str.replace(/&lt;/g,'<');
+      //   str = str.replace(/&gt;/g,'>');
+      //   return str;
+      // },
 
       onSave() {
         this.$store.state.tableData = this.tableData
       },
       onSubmit(data) {
+        // console.log('submit!');
+        // this.$emit('getValue', this.noticeadddata.content)
+        // this.$store.state.content = this.noticeadddata.content
+        // this.$router.push('Hello')
         console.log('submit!');
-        this.$emit('getValue', this.noticeadddata.content)
-        this.$store.state.content = this.noticeadddata.content
+        this.$store.state.tinymceHtml = tinyMCE.activeEditor.getContent()
         this.$router.push('Hello')
       },
       onSaveChange() {
         this.$store.state.tableData = this.tableData
       },
       onSubmitChange() {
+        // console.log('submit!');
+        // this.$emit('getValue', this.noticechangedata.content)
+        // this.$store.state.content = this.noticechangedata.content
+        // this.$router.push('Hello')
         console.log('submit!');
-        this.$emit('getValue', this.noticechangedata.content)
-        this.$store.state.content = this.noticechangedata.content
+        this.$store.state.tinymceHtml = tinyMCE.activeEditor.getContent()
         this.$router.push('Hello')
       },
       //搜索列表所需函数

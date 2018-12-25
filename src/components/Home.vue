@@ -5,8 +5,9 @@
       <div class="search">
         <el-input placeholder="请输入内容" v-model="input5" class="input-with-select">
           <el-select v-model="select" slot="prepend" placeholder="请选择">
-            <el-option label="产品" value="1" selected="selected"></el-option>
-            <el-option label="标准" value="2"></el-option>
+            <el-option label="调研产品" value="1" selected="selected"></el-option>
+            <el-option label="产品" value="2" ></el-option>
+            <el-option label="标准" value="3"></el-option>
           </el-select>
           <el-button slot="append" class="append-btn" icon="el-icon-search"></el-button>
         </el-input>
@@ -18,7 +19,7 @@
         </div>
       </div>-->
       <!--最新产品和热门产品-->
-      <div class="new" v-for="item in listData">
+      <div class="new" v-for="item in listData" style="display: none">
         <div class="new_title_line com-color" v-text="item.title" @click="goSearchType" style="cursor:pointer;">
         </div>
         <div class="newpd">
@@ -36,8 +37,8 @@
               <el-button style="float: right; padding: 3px 0" type="text" @click="goNoticeItem">更多>></el-button>
             </div>
             <div v-for="notice in notice_tableData" :key="" class="text item" @click="goNotice" style="cursor:pointer ">
-              <div class="notice-title">{{notice.title}}</div>
-              <div class="notice-date">{{notice.date}}</div>
+              <div class="notice-title" :title=notice.title>{{notice.title}}</div>
+              <div class="notice-date" :title=notice.title>{{notice.date}}</div>
             </div>
             <!--</div>-->
           </el-card>
@@ -51,15 +52,29 @@
               <el-button style="float: right; padding: 3px 0" type="text" @click="goNorm">更多>></el-button>
             </div>
             <div v-for="norm in norm_tableData" :key="" class="text item" @click="goNormDetail" style="cursor:pointer ">
-              <div class="norm-title">{{norm.title}}</div>
-              <div class="norm-date">{{norm.date}}</div>
+              <div class="norm-title" :title=norm.title>{{norm.title}}</div>
+              <div class="norm-date" :title=norm.date>{{norm.date}}</div>
             </div>
           </el-card>
         </div>
       </div>
 
-      <div class="clear" style="clear: both;height: 10px"></div>
+      <div class="clear" style="clear: both;height: 30px"></div>
+       <!--最新调研产品-->
+      <div class="survey">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span class="title com-color">最新调研产品</span>
+            <el-button style="float: right; padding: 3px 0" type="text" @click="goSearchType">更多>></el-button>
+          </div>
+          <div v-for="surveypd in surveypdlist" :key="" class="text item" @click="goProduct" style="cursor:pointer ">
+            <div class="surveypd-title" style="float: left;width: 45%;text-align: left">{{surveypd.title}}</div>
+            <div class="surveypd-type" style="float: left;width: 30%;text-align: left">{{surveypd.type}}</div>
+            <div class="surveypd-date" style="float: right;">{{surveypd.date}}</div>
+          </div>
+        </el-card>
 
+      </div>
     </div>
   </div>
 </template>
@@ -138,10 +153,22 @@
               {url: require('../assets/img/10.jpg'), title: '寿光市政法部门刑事案件信息共享平台', id: 8},
             ]
           }
+        ],
+        surveypdlist:[
+          {title:'民航智能辅助办案系统',type:'业务应用类-综合业务',date:'2018-06-11'},
+          {title:'公诉智能辅助办案系统',type:'业务应用类-公益诉讼',date:'2018-05-15'},
+          {title:'检察业务大数据分析平台',type:'业务应用类-综合业务',date:'2018-05-15'},
+          {title:'侦监智能辅助办案系统',type:'业务应用类-综合业务',date:'2018-05-15'},
+          {title:'侦监智能辅助办案系统',type:'业务应用类-综合业务',date:'2018-05-15'},
+          {title:'侦监智能辅助办案系统',type:'业务应用类-综合业务',date:'2018-05-15'},
+          {title:'侦监智能辅助办案系统',type:'业务应用类-综合业务',date:'2018-05-15'},
         ]
       }
     },
     methods: {
+      goProduct(){
+        this.$router.push('/Product');
+      },
       goSearchType(){
         this.$router.push('/SearchType');
       },
@@ -181,7 +208,7 @@
     margin: 0 10%;
   }
   .search .el-select {
-    width: 100px;
+    width: 150px;
   }
   .search .input-with-select .el-input-group__prepend {
     background-color: #fff;
@@ -238,8 +265,10 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     float: left;
-    height: 40px;
+    /*height: 40px;*/
     text-align: left;
+    line-height: 20px;
+    padding-bottom: 10px;
   }
   .notice-date, .norm-date {
     overflow: hidden;
@@ -248,6 +277,8 @@
     width: 25%;
     float: right;
     text-align: left;
+    line-height: 20px;
+    padding-bottom: 10px;
   }
   .text {
     font-size: 16px;
@@ -296,6 +327,13 @@
   .newpd {
     /*margin-top: 20px;*/
     width: 100%;
+  }
+  /*最新调研产品*/
+  .survey .surveypd-title, .survey .surveypd-type, .survey .surveypd-date{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 40px;
   }
 </style>
 <style>

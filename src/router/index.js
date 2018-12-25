@@ -76,6 +76,8 @@ import OrganizationDataView from '@/components/body/back/organization/Organizati
 import LogManage from '@/components/body/back/log/LogManage'
 //后台--公告管理
 import NoticeManage from '@/components/body/back/notice/NoticeManage'
+//后台--统计管理
+import Survey from '@/components/body/back/survey/Survey'
 
 //资源
 import Menu from '@/components/Menu'
@@ -468,7 +470,13 @@ export default new Router({
               path: '/Back/NoticeManage',
               name: 'NoticeManage',
               component: NoticeManage
-            }
+            },
+            //——————统计管理
+            {
+              path: '/Back/Survey',
+              name: 'Survey',
+              component: Survey
+            },
           ], redirect: '/Back/PdManage'
         },
 

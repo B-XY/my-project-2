@@ -113,7 +113,8 @@
             ],
           name: [
             {required: true, message: '请输入用户名', trigger: 'blur'},
-            {min: 3, max: 8, message: '长度在 3 到 8 个字符', trigger: 'blur'}
+            {min: 3, max: 8, message: '长度在 3 到 8 个字符', trigger: 'blur'},
+            {type: 'input',sql:'SELECT name from userTable', message: '用户名已存在', trigger: 'blur'},
           ],
           pass: [
             {required: true, validator: validatePass, trigger: 'blur'}

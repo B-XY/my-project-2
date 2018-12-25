@@ -15,12 +15,12 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/mycss-face.scss'
 Vue.use(ElementUI)
 
-import  VueQuillEditor from 'vue-quill-editor'
-// require styles 引入样式
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
-Vue.use(VueQuillEditor)
+// import  VueQuillEditor from 'vue-quill-editor'
+// // require styles 引入样式
+// import 'quill/dist/quill.core.css'
+// import 'quill/dist/quill.snow.css'
+// import 'quill/dist/quill.bubble.css'
+// Vue.use(VueQuillEditor)
 
 // import api from './api/api' // 导入api接口
 // Vue.prototype.$api = api; // 将api挂载到vue的原型上

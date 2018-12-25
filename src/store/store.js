@@ -8,10 +8,14 @@ const store = new Vuex.Store({
   state:{
     token:null,
     tableData:[],
-    content:'',
     currentPage:1,
-    pageSize:10
+    pageSize:10,
+    // checkindex:''
 
+
+    // content:'',
+    //富文本显示
+    tinymceHtml:'',
 
   },
   //显示的更改state

@@ -59,7 +59,7 @@
           <!--<div class="clear"></div>-->
         </div>
         <!--具体展示列表-->
-        <div class="pds_show">
+        <div class="pds_show" style="display: none">
           <div class="pds_show_pdi">
             <el-row>
 
@@ -81,18 +81,54 @@
 
             </el-row>
           </div>
-          <!--页码-->
-          <div class="pages">
-            <el-pagination
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-              :current-page="currentPage4"
-              :page-sizes="[20, 24, 28, 32]"
-              :page-size="20"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="100">
-            </el-pagination>
-          </div>
+
+        </div>
+        <div class="search-result">
+          <el-table
+            :data="pdtableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+            stripe
+            style="width: 100%"
+            :default-sort="{prop: 'implementDate', order: 'descending'}">
+            <el-table-column
+              type="index"
+              width="70">
+              <!--序号不因排序而改变-->
+              <!--<template scope="scope"><span>{{scope.$index+(pageNo - 1) * pageSize + 1}} </span></template>-->
+            </el-table-column>
+            <el-table-column
+              prop="number"
+              label="产品编号" :show-overflow-tooltip="true">
+              <template slot-scope="scope"><a class="normNumber" @click="goProduct"
+              >{{scope.row.number}}</a></template>
+            </el-table-column>
+            <el-table-column
+              prop="name"
+              label="产品名称" :show-overflow-tooltip="true">
+            </el-table-column>
+            <el-table-column
+              prop="type"
+
+              label="产品类型" :show-overflow-tooltip="true">
+            </el-table-column>
+            <el-table-column
+              prop="date"
+              sortable
+              label="上架时间" :show-overflow-tooltip="true">
+            </el-table-column>
+
+          </el-table>
+        </div>
+        <!--页码-->
+        <div class="pages">
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-sizes="[10,15,20,25,30]"
+            :page-size="pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="pdtableData.length">
+          </el-pagination>
         </div>
       </div>
     </div>
@@ -115,7 +151,7 @@
           input5:''
         },
         checkindex:'0',
-        sortArr:['综合排序','点击量','评论数','上架时间'],
+        sortArr:['综合排序','点击量','意见数目','上架时间'],
         /*activeName: 'first',*/
         currentPage4: 4,
         types1: [
@@ -138,6 +174,57 @@
           {url: require('../../assets/img/13.jpg'), title: '在线智能海事诉讼系统', id: 13},
           {url: require('../../assets/img/14.gif'), title: '智慧公安', id: 14},
           {url: require('../../assets/img/15.jpg'), title: '智能辅助办案系统', id: 15},
+        ],
+        //调研产品
+        pdtableData:[
+          {
+            number:10000,
+            name:'民航智能辅助办案系统',
+            type:'业务应用类-综合业务',
+            date:'2018-06-11'
+          },
+          {
+            number:10000,
+            name:'民航智能辅助办案系统',
+            type:'业务应用类-综合业务',
+            date:'2018-06-11'
+          },
+          {
+            number:10000,
+            name:'民航智能辅助办案系统',
+            type:'业务应用类-综合业务',
+            date:'2018-06-11'
+          },
+          {
+            number:10000,
+            name:'民航智能辅助办案系统',
+            type:'业务应用类-综合业务',
+            date:'2018-06-11'
+          },
+          {
+            number:10000,
+            name:'民航智能辅助办案系统',
+            type:'业务应用类-综合业务',
+            date:'2018-06-11'
+          },
+          {
+            number:10000,
+            name:'民航智能辅助办案系统',
+            type:'业务应用类-综合业务',
+            date:'2018-06-11'
+          },
+          {
+            number:10000,
+            name:'民航智能辅助办案系统',
+            type:'业务应用类-综合业务',
+            date:'2018-06-11'
+          },
+          {
+            number:10000,
+            name:'民航智能辅助办案系统',
+            type:'业务应用类-综合业务',
+            date:'2018-06-11'
+          },
         ]
       };
     },
@@ -164,6 +251,17 @@
       randomArr: function(a,b){
           return Math.random()>.5 ? -1:1;
 
+      }
+    },
+    computed: {
+      tableData: function () {
+        return this.$store.state.tableData
+      },
+      currentPage: function () {
+        return this.$store.state.currentPage
+      },
+      pageSize: function () {
+        return this.$store.state.pageSize
       }
     }
   }
@@ -369,6 +467,15 @@
   .type .type2 {
     background: rgba(70, 130, 180,.4);
   }
+  /*调研产品列表*/
+  #searchtype .search-result{
+    width: 100%;
+    border: 1px solid #D0D0D0;
+    border-radius: 5px;
+    box-shadow: 0 0 2px #D0D0D0;
+    margin-bottom: 30px;
+  }
+
 </style>
 <style>
   #searchtype .search .el-form-item__content{
